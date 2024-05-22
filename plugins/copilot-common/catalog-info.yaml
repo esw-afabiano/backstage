@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage-plugin-copilot-common
+  title: '@backstage/plugin-copilot-common'
+  description: Common functionalities for the copilot plugin
+spec:
+  lifecycle: experimental
+  type: backstage-common-library
+  owner: maintainers

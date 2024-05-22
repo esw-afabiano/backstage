@@ -21,6 +21,7 @@ import RuleIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MapIcon from '@material-ui/icons/MyLocation';
 import LayersIcon from '@material-ui/icons/Layers';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import SearchIcon from '@material-ui/icons/Search';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -162,6 +163,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
             to="cost-insights"
             text="Cost Insights"
           />
+          <SidebarItem icon={GitHubIcon} to="copilot" text="Copilot" />
           <SidebarItem icon={Score} to="score-board" text="Score board" />
         </SidebarScrollWrapper>
         <SidebarDivider />
