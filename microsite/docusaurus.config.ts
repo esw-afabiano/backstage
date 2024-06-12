@@ -171,6 +171,30 @@ const config: Config = {
             from: '/docs/getting-started/configuration',
             to: '/docs/getting-started/#next-steps',
           },
+          {
+            from: '/docs/features/software-templates/authorizing-parameters-steps-and-actions',
+            to: '/docs/features/software-templates/authorizing-scaffolder-template-details',
+          },
+          {
+            from: '/docs/local-dev/cli-commands/',
+            to: '/docs/tooling/cli/commands/',
+          },
+          {
+            from: '/docs/local-dev/cli-build-system/',
+            to: '/docs/tooling/cli/build-system/',
+          },
+          {
+            from: '/docs/local-dev/cli-overview/',
+            to: '/docs/tooling/cli/overview/',
+          },
+          {
+            from: '/docs/local-dev/linking-local-packages/',
+            to: '/docs/tooling/local-dev/linking-local-packages',
+          },
+          {
+            from: '/docs/local-dev/debugging/',
+            to: '/docs/tooling/local-dev/debugging',
+          },
         ],
       },
     ],

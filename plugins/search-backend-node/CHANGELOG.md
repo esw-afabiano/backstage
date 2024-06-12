@@ -1,5 +1,41 @@
 # @backstage/plugin-search-backend-node
 
+## 1.2.24-next.3
+
+### Patch Changes
+
+- d44a20a: Added additional plugin metadata to `package.json`.
+- Updated dependencies
+  - @backstage/backend-plugin-api@0.6.19-next.3
+  - @backstage/plugin-permission-common@0.7.14-next.0
+  - @backstage/plugin-search-common@1.2.12-next.0
+  - @backstage/backend-tasks@0.5.24-next.3
+  - @backstage/backend-common@0.23.0-next.3
+  - @backstage/config@1.2.0
+  - @backstage/errors@1.2.4
+
+## 1.2.24-next.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/backend-plugin-api@0.6.19-next.2
+  - @backstage/backend-common@0.23.0-next.2
+  - @backstage/backend-tasks@0.5.24-next.2
+  - @backstage/config@1.2.0
+  - @backstage/errors@1.2.4
+  - @backstage/plugin-permission-common@0.7.13
+  - @backstage/plugin-search-common@1.2.11
+
+## 1.2.24-next.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/backend-tasks@0.5.24-next.1
+  - @backstage/backend-plugin-api@0.6.19-next.1
+  - @backstage/backend-common@0.23.0-next.1
+
 ## 1.2.24-next.0
 
 ### Patch Changes

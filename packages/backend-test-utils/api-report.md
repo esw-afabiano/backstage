@@ -11,6 +11,7 @@ import { Backend } from '@backstage/backend-app-api';
 import { BackendFeature } from '@backstage/backend-plugin-api';
 import { BackstageCredentials } from '@backstage/backend-plugin-api';
 import { BackstageNonePrincipal } from '@backstage/backend-plugin-api';
+import { BackstagePrincipalAccessRestrictions } from '@backstage/backend-plugin-api';
 import { BackstageServicePrincipal } from '@backstage/backend-plugin-api';
 import { BackstageUserInfo } from '@backstage/backend-plugin-api';
 import { BackstageUserPrincipal } from '@backstage/backend-plugin-api';
@@ -25,6 +26,7 @@ import { HttpRouterFactoryOptions } from '@backstage/backend-app-api';
 import { HttpRouterService } from '@backstage/backend-plugin-api';
 import { IdentityService } from '@backstage/backend-plugin-api';
 import { JsonObject } from '@backstage/types';
+import Keyv from 'keyv';
 import { Knex } from 'knex';
 import { LifecycleService } from '@backstage/backend-plugin-api';
 import { LoggerService } from '@backstage/backend-plugin-api';
@@ -43,8 +45,14 @@ import { UserInfoService } from '@backstage/backend-plugin-api';
 
 // @public
 export function createMockDirectory(
-  options?: MockDirectoryOptions,
+  options?: CreateMockDirectoryOptions,
 ): MockDirectory;
+
+// @public
+export interface CreateMockDirectoryOptions {
+  content?: MockDirectoryContent;
+  mockOsTmpDir?: boolean;
+}
 
 // @public (undocumented)
 export function isDockerDisabledForTests(): boolean;
@@ -68,6 +76,7 @@ export namespace mockCredentials {
   }
   export function service(
     subject?: string,
+    accessRestrictions?: BackstagePrincipalAccessRestrictions,
   ): BackstageCredentials<BackstageServicePrincipal>;
   export namespace service {
     export function header(options?: TokenOptions): string;
@@ -133,11 +142,8 @@ export interface MockDirectoryContentOptions {
   shouldReadAsText?: boolean | ((path: string, buffer: Buffer) => boolean);
 }
 
-// @public
-export interface MockDirectoryOptions {
-  content?: MockDirectoryContent;
-  mockOsTmpDir?: boolean;
-}
+// @public @deprecated (undocumented)
+export type MockDirectoryOptions = CreateMockDirectoryOptions;
 
 // @public (undocumented)
 export namespace mockServices {
@@ -421,6 +427,28 @@ export interface TestBackendOptions<TExtensionPoints extends any[]> {
         default: BackendFeature | (() => BackendFeature);
       }>
   >;
+}
+
+// @public
+export type TestCacheId = 'MEMORY' | 'REDIS_7' | 'MEMCACHED_1';
+
+// @public
+export class TestCaches {
+  static create(options?: {
+    ids?: TestCacheId[];
+    disableDocker?: boolean;
+  }): TestCaches;
+  // (undocumented)
+  eachSupportedId(): [TestCacheId][];
+  init(id: TestCacheId): Promise<{
+    store: string;
+    connection: string;
+    keyv: Keyv;
+  }>;
+  // (undocumented)
+  static setDefaults(options: { ids?: TestCacheId[] }): void;
+  // (undocumented)
+  supports(id: TestCacheId): boolean;
 }
 
 // @public

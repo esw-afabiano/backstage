@@ -1,5 +1,59 @@
 # @backstage/backend-defaults
 
+## 0.3.0-next.3
+
+### Patch Changes
+
+- 1897169: Exposed `DefaultSchedulerService`
+- 8aab451: Internal minor refactors of the database connectors
+- b2ee7f3: Moved over all URL reader functionality from `@backstage/backend-common` to `@backstage/backend-defaults/urlReader`. Please update your imports.
+- Updated dependencies
+  - @backstage/backend-plugin-api@0.6.19-next.3
+  - @backstage/integration@1.12.0-next.1
+  - @backstage/plugin-permission-node@0.7.30-next.3
+  - @backstage/plugin-events-node@0.3.5-next.2
+  - @backstage/backend-common@0.23.0-next.3
+  - @backstage/backend-app-api@0.7.6-next.3
+  - @backstage/config-loader@1.8.1-next.0
+  - @backstage/backend-dev-utils@0.1.4
+  - @backstage/config@1.2.0
+  - @backstage/errors@1.2.4
+  - @backstage/integration-aws-node@0.1.12
+  - @backstage/types@1.1.1
+
+## 0.3.0-next.2
+
+### Patch Changes
+
+- 0634fdc: Deprecated `dropDatabase`
+- Updated dependencies
+  - @backstage/backend-plugin-api@0.6.19-next.2
+  - @backstage/backend-common@0.23.0-next.2
+  - @backstage/plugin-permission-node@0.7.30-next.2
+  - @backstage/backend-app-api@0.7.6-next.2
+  - @backstage/plugin-events-node@0.3.5-next.1
+  - @backstage/config-loader@1.8.0
+  - @backstage/backend-dev-utils@0.1.4
+  - @backstage/config@1.2.0
+  - @backstage/errors@1.2.4
+  - @backstage/types@1.1.1
+
+## 0.3.0-next.1
+
+### Minor Changes
+
+- 02103be: Deprecated and moved over core services to `@backstage/backend-defaults`
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/backend-app-api@0.7.6-next.1
+  - @backstage/backend-plugin-api@0.6.19-next.1
+  - @backstage/plugin-permission-node@0.7.30-next.1
+  - @backstage/backend-common@0.23.0-next.1
+  - @backstage/config-loader@1.8.0
+  - @backstage/plugin-events-node@0.3.5-next.0
+
 ## 0.2.19-next.0
 
 ### Patch Changes

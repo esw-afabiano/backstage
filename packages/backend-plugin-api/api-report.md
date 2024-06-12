@@ -16,6 +16,7 @@ import { isChildPath } from '@backstage/cli-common';
 import { JsonObject } from '@backstage/types';
 import { JsonValue } from '@backstage/types';
 import { Knex } from 'knex';
+import { PermissionAttributes } from '@backstage/plugin-permission-common';
 import { PermissionEvaluator } from '@backstage/plugin-permission-common';
 import { QueryPermissionRequest } from '@backstage/plugin-permission-common';
 import { QueryPermissionResponse } from '@backstage/plugin-permission-common';
@@ -23,41 +24,34 @@ import { Readable } from 'stream';
 import { Request as Request_2 } from 'express';
 import { Response as Response_2 } from 'express';
 
-// @public (undocumented)
+// @public
 export interface AuthService {
-  // (undocumented)
   authenticate(
     token: string,
     options?: {
       allowLimitedAccess?: boolean;
     },
   ): Promise<BackstageCredentials>;
-  // (undocumented)
   getLimitedUserToken(
     credentials: BackstageCredentials<BackstageUserPrincipal>,
   ): Promise<{
     token: string;
     expiresAt: Date;
   }>;
-  // (undocumented)
   getNoneCredentials(): Promise<BackstageCredentials<BackstageNonePrincipal>>;
-  // (undocumented)
   getOwnServiceCredentials(): Promise<
     BackstageCredentials<BackstageServicePrincipal>
   >;
-  // (undocumented)
   getPluginRequestToken(options: {
     onBehalfOf: BackstageCredentials;
     targetPluginId: string;
   }): Promise<{
     token: string;
   }>;
-  // (undocumented)
   isPrincipal<TType extends keyof BackstagePrincipalTypes>(
     credentials: BackstageCredentials,
     type: TType,
   ): credentials is BackstageCredentials<BackstagePrincipalTypes[TType]>;
-  // (undocumented)
   listPublicServiceKeys(): Promise<{
     keys: JsonObject[];
   }>;
@@ -69,13 +63,8 @@ export interface BackendFeature {
   $$type: '@backstage/BackendFeature';
 }
 
-// @public
-export interface BackendModuleConfig {
-  moduleId: string;
-  pluginId: string;
-  // (undocumented)
-  register(reg: BackendModuleRegistrationPoints): void;
-}
+// @public @deprecated (undocumented)
+export type BackendModuleConfig = CreateBackendModuleOptions;
 
 // @public
 export interface BackendModuleRegistrationPoints {
@@ -97,12 +86,8 @@ export interface BackendModuleRegistrationPoints {
   }): void;
 }
 
-// @public
-export interface BackendPluginConfig {
-  pluginId: string;
-  // (undocumented)
-  register(reg: BackendPluginRegistrationPoints): void;
-}
+// @public @deprecated (undocumented)
+export type BackendPluginConfig = CreateBackendPluginOptions;
 
 // @public
 export interface BackendPluginRegistrationPoints {
@@ -124,19 +109,27 @@ export interface BackendPluginRegistrationPoints {
   }): void;
 }
 
-// @public (undocumented)
+// @public
 export type BackstageCredentials<TPrincipal = unknown> = {
   $$type: '@backstage/BackstageCredentials';
   expiresAt?: Date;
   principal: TPrincipal;
 };
 
-// @public (undocumented)
+// @public
 export type BackstageNonePrincipal = {
   type: 'none';
 };
 
-// @public (undocumented)
+// @public
+export type BackstagePrincipalAccessRestrictions = {
+  permissionNames?: string[];
+  permissionAttributes?: {
+    action?: Array<Required<PermissionAttributes>['action']>;
+  };
+};
+
+// @public
 export type BackstagePrincipalTypes = {
   user: BackstageUserPrincipal;
   service: BackstageServicePrincipal;
@@ -144,13 +137,14 @@ export type BackstagePrincipalTypes = {
   unknown: unknown;
 };
 
-// @public (undocumented)
+// @public
 export type BackstageServicePrincipal = {
   type: 'service';
   subject: string;
+  accessRestrictions?: BackstagePrincipalAccessRestrictions;
 };
 
-// @public (undocumented)
+// @public
 export interface BackstageUserInfo {
   // (undocumented)
   ownershipEntityRefs: string[];
@@ -158,7 +152,7 @@ export interface BackstageUserInfo {
   userEntityRef: string;
 }
 
-// @public (undocumented)
+// @public
 export type BackstageUserPrincipal = {
   type: 'user';
   userEntityRef: string;
@@ -213,18 +207,38 @@ export namespace coreServices {
 
 // @public
 export function createBackendModule(
-  config: BackendModuleConfig,
+  options: CreateBackendModuleOptions,
 ): () => BackendFeature;
+
+// @public
+export interface CreateBackendModuleOptions {
+  moduleId: string;
+  pluginId: string;
+  // (undocumented)
+  register(reg: BackendModuleRegistrationPoints): void;
+}
 
 // @public
 export function createBackendPlugin(
-  config: BackendPluginConfig,
+  options: CreateBackendPluginOptions,
 ): () => BackendFeature;
 
 // @public
+export interface CreateBackendPluginOptions {
+  pluginId: string;
+  // (undocumented)
+  register(reg: BackendPluginRegistrationPoints): void;
+}
+
+// @public
 export function createExtensionPoint<T>(
-  config: ExtensionPointConfig,
+  options: CreateExtensionPointOptions,
 ): ExtensionPoint<T>;
+
+// @public
+export interface CreateExtensionPointOptions {
+  id: string;
+}
 
 // @public
 export function createServiceFactory<
@@ -310,14 +324,11 @@ export type ExtensionPoint<T> = {
   $$type: '@backstage/ExtensionPoint';
 };
 
-// @public
-export interface ExtensionPointConfig {
-  id: string;
-}
+// @public @deprecated (undocumented)
+export type ExtensionPointConfig = CreateExtensionPointOptions;
 
-// @public (undocumented)
+// @public
 export interface HttpAuthService {
-  // (undocumented)
   credentials<TAllowed extends keyof BackstagePrincipalTypes = 'unknown'>(
     req: Request_2<any, any, any, any, any>,
     options?: {
@@ -325,7 +336,6 @@ export interface HttpAuthService {
       allowLimitedAccess?: boolean;
     },
   ): Promise<BackstageCredentials<BackstagePrincipalTypes[TAllowed]>>;
-  // (undocumented)
   issueUserCookie(
     res: Response_2,
     options?: {
@@ -336,15 +346,13 @@ export interface HttpAuthService {
   }>;
 }
 
-// @public (undocumented)
+// @public
 export interface HttpRouterService {
-  // (undocumented)
   addAuthPolicy(policy: HttpRouterServiceAuthPolicy): void;
-  // (undocumented)
   use(handler: Handler): void;
 }
 
-// @public (undocumented)
+// @public
 export interface HttpRouterServiceAuthPolicy {
   // (undocumented)
   allow: 'unauthenticated' | 'user-cookie';
@@ -352,7 +360,7 @@ export interface HttpRouterServiceAuthPolicy {
   path: string;
 }
 
-// @public (undocumented)
+// @public @deprecated
 export interface IdentityService extends IdentityApi {}
 
 export { isChildPath };
@@ -360,7 +368,7 @@ export { isChildPath };
 // @public
 export function isDatabaseConflictError(e: unknown): boolean;
 
-// @public (undocumented)
+// @public
 export interface LifecycleService {
   addShutdownHook(
     hook: LifecycleServiceShutdownHook,
@@ -402,14 +410,12 @@ export interface LoggerService {
   warn(message: string, meta?: Error | JsonObject): void;
 }
 
-// @public (undocumented)
+// @public
 export interface PermissionsService extends PermissionEvaluator {
-  // (undocumented)
   authorize(
     requests: AuthorizePermissionRequest[],
     options?: PermissionsServiceRequestOptions,
   ): Promise<AuthorizePermissionResponse[]>;
-  // (undocumented)
   authorizeConditional(
     requests: QueryPermissionRequest[],
     options?: PermissionsServiceRequestOptions,
@@ -425,9 +431,8 @@ export type PermissionsServiceRequestOptions =
       credentials: BackstageCredentials;
     };
 
-// @public (undocumented)
+// @public
 export interface PluginMetadataService {
-  // (undocumented)
   getId(): string;
 }
 
@@ -461,54 +466,23 @@ export function readSchedulerServiceTaskScheduleDefinitionFromConfig(
   config: Config,
 ): SchedulerServiceTaskScheduleDefinition;
 
-// @public
-export type ReadTreeOptions = {
-  filter?(
-    path: string,
-    info?: {
-      size: number;
-    },
-  ): boolean;
-  etag?: string;
-  signal?: AbortSignal;
-  token?: string;
-};
+// @public @deprecated (undocumented)
+export type ReadTreeOptions = UrlReaderReadTreeOptions;
 
-// @public
-export type ReadTreeResponse = {
-  files(): Promise<ReadTreeResponseFile[]>;
-  archive(): Promise<NodeJS.ReadableStream>;
-  dir(options?: ReadTreeResponseDirOptions): Promise<string>;
-  etag: string;
-};
+// @public @deprecated (undocumented)
+export type ReadTreeResponse = UrlReaderReadTreeResponse;
 
-// @public
-export type ReadTreeResponseDirOptions = {
-  targetDir?: string;
-};
+// @public @deprecated (undocumented)
+export type ReadTreeResponseDirOptions = UrlReaderReadTreeResponseDirOptions;
 
-// @public
-export type ReadTreeResponseFile = {
-  path: string;
-  content(): Promise<Buffer>;
-  lastModifiedAt?: Date;
-};
+// @public @deprecated (undocumented)
+export type ReadTreeResponseFile = UrlReaderReadTreeResponseFile;
 
-// @public
-export type ReadUrlOptions = {
-  etag?: string;
-  lastModifiedAfter?: Date;
-  signal?: AbortSignal;
-  token?: string;
-};
+// @public @deprecated (undocumented)
+export type ReadUrlOptions = UrlReaderReadUrlOptions;
 
-// @public
-export type ReadUrlResponse = {
-  buffer(): Promise<Buffer>;
-  stream?(): Readable;
-  etag?: string;
-  lastModifiedAt?: Date;
-};
+// @public @deprecated (undocumented)
+export type ReadUrlResponse = UrlReaderReadUrlResponse;
 
 // @public
 export function resolvePackagePath(name: string, ...paths: string[]): string;
@@ -516,18 +490,18 @@ export function resolvePackagePath(name: string, ...paths: string[]): string;
 // @public
 export function resolveSafeChildPath(base: string, path: string): string;
 
-// @public (undocumented)
+// @public
 export interface RootConfigService extends Config {}
 
-// @public (undocumented)
+// @public
 export interface RootHttpRouterService {
   use(path: string, handler: Handler): void;
 }
 
-// @public (undocumented)
+// @public
 export interface RootLifecycleService extends LifecycleService {}
 
-// @public (undocumented)
+// @public
 export interface RootLoggerService extends LoggerService {}
 
 // @public (undocumented)
@@ -612,25 +586,14 @@ export interface SchedulerServiceTaskScheduleDefinitionConfig {
   timeout: string | HumanDuration;
 }
 
-// @public
-export type SearchOptions = {
-  etag?: string;
-  signal?: AbortSignal;
-  token?: string;
-};
+// @public @deprecated (undocumented)
+export type SearchOptions = UrlReaderSearchOptions;
 
-// @public
-export type SearchResponse = {
-  files: SearchResponseFile[];
-  etag: string;
-};
+// @public @deprecated (undocumented)
+export type SearchResponse = UrlReaderSearchResponse;
 
-// @public
-export type SearchResponseFile = {
-  url: string;
-  content(): Promise<Buffer>;
-  lastModifiedAt?: Date;
-};
+// @public @deprecated (undocumented)
+export type SearchResponseFile = UrlReaderSearchResponseFile;
 
 // @public (undocumented)
 export interface ServiceFactory<
@@ -667,7 +630,7 @@ export interface ServiceRefConfig<TService, TScope extends 'root' | 'plugin'> {
   scope?: TScope;
 }
 
-// @public
+// @public @deprecated
 export interface TokenManagerService {
   authenticate(token: string): Promise<void>;
   getToken(): Promise<{
@@ -676,15 +639,92 @@ export interface TokenManagerService {
 }
 
 // @public
+export type UrlReaderReadTreeOptions = {
+  filter?(
+    path: string,
+    info?: {
+      size: number;
+    },
+  ): boolean;
+  etag?: string;
+  signal?: AbortSignal;
+  token?: string;
+};
+
+// @public
+export type UrlReaderReadTreeResponse = {
+  files(): Promise<UrlReaderReadTreeResponseFile[]>;
+  archive(): Promise<NodeJS.ReadableStream>;
+  dir(options?: UrlReaderReadTreeResponseDirOptions): Promise<string>;
+  etag: string;
+};
+
+// @public
+export type UrlReaderReadTreeResponseDirOptions = {
+  targetDir?: string;
+};
+
+// @public
+export type UrlReaderReadTreeResponseFile = {
+  path: string;
+  content(): Promise<Buffer>;
+  lastModifiedAt?: Date;
+};
+
+// @public
+export type UrlReaderReadUrlOptions = {
+  etag?: string;
+  lastModifiedAfter?: Date;
+  signal?: AbortSignal;
+  token?: string;
+};
+
+// @public
+export type UrlReaderReadUrlResponse = {
+  buffer(): Promise<Buffer>;
+  stream?(): Readable;
+  etag?: string;
+  lastModifiedAt?: Date;
+};
+
+// @public
+export type UrlReaderSearchOptions = {
+  etag?: string;
+  signal?: AbortSignal;
+  token?: string;
+};
+
+// @public
+export type UrlReaderSearchResponse = {
+  files: UrlReaderSearchResponseFile[];
+  etag: string;
+};
+
+// @public
+export type UrlReaderSearchResponseFile = {
+  url: string;
+  content(): Promise<Buffer>;
+  lastModifiedAt?: Date;
+};
+
+// @public
 export interface UrlReaderService {
-  readTree(url: string, options?: ReadTreeOptions): Promise<ReadTreeResponse>;
-  readUrl(url: string, options?: ReadUrlOptions): Promise<ReadUrlResponse>;
-  search(url: string, options?: SearchOptions): Promise<SearchResponse>;
+  readTree(
+    url: string,
+    options?: UrlReaderReadTreeOptions,
+  ): Promise<UrlReaderReadTreeResponse>;
+  readUrl(
+    url: string,
+    options?: UrlReaderReadUrlOptions,
+  ): Promise<UrlReaderReadUrlResponse>;
+  search(
+    url: string,
+    options?: UrlReaderSearchOptions,
+  ): Promise<UrlReaderSearchResponse>;
 }
 
-// @public (undocumented)
+// @public
 export interface UserInfoService {
-  // (undocumented)
   getUserInfo(credentials: BackstageCredentials): Promise<BackstageUserInfo>;
 }
 ```

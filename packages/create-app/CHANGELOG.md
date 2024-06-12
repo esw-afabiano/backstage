@@ -1,5 +1,29 @@
 # @backstage/create-app
 
+## 0.5.16-next.3
+
+### Patch Changes
+
+- 34daaea: Fixed a broken link to the node-postgres documentation
+- 1a212f9: Remove Tech Radar menu item from sidebar of scaffolded app to align with removal of tech-radar plugin from backend
+- Updated dependencies
+  - @backstage/cli-common@0.1.14-next.0
+
+## 0.5.16-next.2
+
+### Patch Changes
+
+- 78363f6: Bumped TypeScript to version `5.4`.
+- 81507c8: Updated `node-gyp` to v10
+- Updated dependencies
+  - @backstage/cli-common@0.1.13
+
+## 0.5.16-next.1
+
+### Patch Changes
+
+- Bumped create-app version.
+
 ## 0.5.16-next.0
 
 ### Patch Changes

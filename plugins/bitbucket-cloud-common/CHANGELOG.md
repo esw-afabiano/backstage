@@ -1,5 +1,20 @@
 # @backstage/plugin-bitbucket-cloud-common
 
+## 0.2.20-next.1
+
+### Patch Changes
+
+- d44a20a: Added additional plugin metadata to `package.json`.
+- Updated dependencies
+  - @backstage/integration@1.12.0-next.1
+
+## 0.2.20-next.0
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/integration@1.12.0-next.0
+
 ## 0.2.19
 
 ### Patch Changes

@@ -20,6 +20,7 @@ export type {
   BackstageCredentials,
   BackstageUserPrincipal,
   BackstageServicePrincipal,
+  BackstagePrincipalAccessRestrictions,
   BackstagePrincipalTypes,
   BackstageNonePrincipal,
 } from './AuthService';
@@ -73,6 +74,15 @@ export type {
   SearchOptions,
   SearchResponse,
   SearchResponseFile,
+  UrlReaderReadTreeOptions,
+  UrlReaderReadTreeResponse,
+  UrlReaderReadTreeResponseDirOptions,
+  UrlReaderReadTreeResponseFile,
+  UrlReaderReadUrlResponse,
+  UrlReaderReadUrlOptions,
+  UrlReaderSearchOptions,
+  UrlReaderSearchResponse,
+  UrlReaderSearchResponseFile,
   UrlReaderService,
 } from './UrlReaderService';
 export type { BackstageUserInfo, UserInfoService } from './UserInfoService';

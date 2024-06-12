@@ -1,5 +1,48 @@
 # @backstage/cli
 
+## 0.26.7-next.3
+
+### Patch Changes
+
+- c328131: Added a new `--publish` flag to the `repo fix` command. This command will validate and if possible generate the metadata required for publishing packages with the Backstage CLI. In addition, a check has been added that the `backstage.pluginId` and `backstage.pluginPackage(s)` fields are present when packing a package for publishing.
+- Updated dependencies
+  - @backstage/cli-node@0.2.6-next.2
+  - @backstage/integration@1.12.0-next.1
+  - @backstage/cli-common@0.1.14-next.0
+  - @backstage/config-loader@1.8.1-next.0
+  - @backstage/catalog-model@1.5.0
+  - @backstage/config@1.2.0
+  - @backstage/errors@1.2.4
+  - @backstage/eslint-plugin@0.1.8
+  - @backstage/release-manifests@0.0.11
+  - @backstage/types@1.1.1
+
+## 0.26.7-next.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/cli-node@0.2.6-next.1
+  - @backstage/integration@1.12.0-next.0
+  - @backstage/config-loader@1.8.0
+  - @backstage/catalog-model@1.5.0
+  - @backstage/cli-common@0.1.13
+  - @backstage/config@1.2.0
+  - @backstage/errors@1.2.4
+  - @backstage/eslint-plugin@0.1.8
+  - @backstage/release-manifests@0.0.11
+  - @backstage/types@1.1.1
+
+## 0.26.7-next.1
+
+### Patch Changes
+
+- 788eca7: Fix readme for new plugins created using cli
+- c00f7ee: Fix issue with `esm` loaded dependencies being different from the `cjs` import for Vite dependencies
+- Updated dependencies
+  - @backstage/cli-node@0.2.6-next.0
+  - @backstage/config-loader@1.8.0
+
 ## 0.26.6-next.0
 
 ### Patch Changes

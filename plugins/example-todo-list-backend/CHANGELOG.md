@@ -1,5 +1,34 @@
 # @internal/plugin-todo-list-backend
 
+## 1.0.28-next.3
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/backend-plugin-api@0.6.19-next.3
+  - @backstage/plugin-auth-node@0.4.14-next.3
+  - @backstage/backend-common@0.23.0-next.3
+  - @backstage/errors@1.2.4
+
+## 1.0.28-next.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/backend-plugin-api@0.6.19-next.2
+  - @backstage/backend-common@0.23.0-next.2
+  - @backstage/plugin-auth-node@0.4.14-next.2
+  - @backstage/errors@1.2.4
+
+## 1.0.28-next.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/backend-plugin-api@0.6.19-next.1
+  - @backstage/backend-common@0.23.0-next.1
+  - @backstage/plugin-auth-node@0.4.14-next.1
+
 ## 1.0.28-next.0
 
 ### Patch Changes
